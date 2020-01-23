@@ -1,0 +1,65 @@
+﻿@page  "/UpdateEmployee/{CurrentId}"
+@using BlazorAPPGenderEmploy.Data
+@inject EmployeService services
+@inject NavigationManager navigationManager 
+
+
+<h3>Update Employee</h3>
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input form="Name" class="form-control" @bind="employeInfo.Name">
+            </div>
+            <div class="form-group">
+                <label for="Gender" class="control-label">Name</label>
+                <select @bind="@employeInfo.Gender" class="form-control">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="City" class="control-label">City</label>
+                <input form="City" class="form-control" @bind="employeInfo.City">
+            </div>
+            <div class="form-group">
+                <label for="Country" class="control-label">Country</label>
+                <input form="Country" class="form-control" @bind="employeInfo.Country">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@EmployeeUpdate" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+@code {
+
+    [Parameter]
+    public string CurrentId { get; set; }
+
+    EmployeInfo employeInfo = new EmployeInfo();
+
+    protected override async Task OnInitializedAsync()
+    {
+        employeInfo = await Task.Run(() => services.GetEmployeId(Convert.ToInt32(CurrentId)));
+
+    }
+
+    protected void EmployeeUpdate()
+    {
+        services.UpdateEmployee(employeInfo);
+        navigationManager.NavigateTo("Employee");
+    }
+    void cancel()
+    {
+        navigationManager.NavigateTo("Employee");
+    }
+}

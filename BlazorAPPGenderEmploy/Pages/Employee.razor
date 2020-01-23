@@ -1,0 +1,60 @@
+﻿@page "/Employee"
+@using BlazorAPPGenderEmploy.Data
+@inject EmployeService service 
+<h3>Employee</h3>
+
+<nav class="nav-link" href="AddEmployee">
+    <span class="oi oi-plus" aria-hidden="true"></span>Crear
+</nav>
+
+<h1>Employee</h1>
+@if(employes == null)
+{
+    <p><em>Loading....</em></p>
+}
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Id</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var emp in employes)
+        {
+        <tr>
+            <td>@emp.EmployeId</td>
+            <td>@emp.Name</td>
+            <td>@emp.Gender</td>
+            <td>@emp.City</td>
+            <td>@emp.Country</td>
+            <td>
+                <a class="nav-link" href="UpdateEmployee/@emp.EmployeId">
+                    <span class="oi oi-pencil" aria-hidden="true"></span>Edit
+                </a>
+                <a class="nav-link" href="DeleteEmployee/@emp.EmployeId">
+                    <span class="oi oi-pencil" aria-hidden="true"></span> Delete 
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    List<EmployeInfo> employes = new List<EmployeInfo>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        employes = await Task.Run(() => service.GetEmployes());
+
+    }
+}

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace BlazorAplicacionGenerosAplicada2Martes21Enero.Data
+namespace BlazorAPPGenderEmploy.Data
 {
     public class EmployeInfo
     {

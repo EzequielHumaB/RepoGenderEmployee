@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorAPPGenderEmploy.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorAPPGenderEmploy
 {
@@ -27,8 +28,10 @@ namespace BlazorAPPGenderEmploy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddTransient<Contexto>();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddDbContext<Contexto>(dbContextOptions => dbContextOptions.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
