@@ -8,4 +8,8 @@
     <None Include="BlazorAplicacionGenerosAplicada2Martes21Enero.sln" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="3.1.1" />
+  </ItemGroup>
+
 </Project>

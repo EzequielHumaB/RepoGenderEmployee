@@ -7,5 +7,13 @@ namespace BlazorAPPGenderEmploy.Data
 {
     public class Contexto
     {
+        public Contexto(DbContextOptions<Contexto> dbContextOptions)
+         : base(dbContextOptions)
+        {
+
+        }
+
+
+        public DbSet<EmployeInfo> employeInfos { get; set; }
     }
 }
